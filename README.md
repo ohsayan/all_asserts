@@ -9,8 +9,8 @@ I had created an RFC, but neverthless it was rejected as there were not enough u
 
 Add these lines to your rust application:
 ```rust
+#[macro_use]
 extern crate all_asserts;
-use all_asserts::asserts;
 ```
 And now you can use the asserts wherever you like!
 On Panic you should get something like this (the example is from `assert_lt!`):
