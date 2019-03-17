@@ -1,5 +1,5 @@
 # all_asserts
-### A crate for multiple types of asserts that don't exists in the standard library
+### A crate for multiple types of asserts that don't exist in the standard library
 # Rationale
 There are several kinds of problems that I had faced while writing tests, especially when writing comparator tests.
 The output from the existing macros, were providing _vague_ outputs while debugging which made me write this crate.
@@ -9,8 +9,8 @@ I had created an RFC, but neverthless it was rejected as there were not enough u
 
 Add these lines to your rust application:
 ```rust
+#[macro_use]
 extern crate all_asserts;
-use all_asserts::asserts;
 ```
 And now you can use the asserts wherever you like!
 On Panic you should get something like this (the example is from `assert_lt!`):
