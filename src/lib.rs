@@ -1,6 +1,14 @@
-mod asserts {
-    #[macro_export]
-    macro_rules! assert_gt {
+/// Asserts that the left hand side expression is greater
+/// than the right hand side expression
+///
+/// # Examples
+/// ```
+/// let a = 100; let b = 100;
+/// assert_gt!(a, b); // This would panic
+/// ```
+/// 
+#[macro_export]
+macro_rules! assert_gt {
     ($left:expr, $right:expr) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
@@ -28,8 +36,17 @@ mod asserts {
             }
         });
     }
-    #[macro_export]
-    macro_rules! assert_ge {
+/// Asserts that the left hand side expression is greater
+/// than or equal to the right hand side expression
+///
+/// # Examples
+/// ```
+/// let a = 100; let b = 200;
+/// assert_gt!(a, b); // This would panic
+/// ```
+/// 
+#[macro_export]
+macro_rules! assert_ge {
     ($left:expr, $right:expr) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
@@ -57,8 +74,17 @@ mod asserts {
         }
     });
 }
-    #[macro_export]
-    macro_rules! assert_lt {
+/// Asserts that the left hand side expression is lesser
+/// than the right hand side expression
+///
+/// # Examples
+/// ```
+/// let a = 100; let b = 100;
+/// assert_gt!(a, b); // This would panic
+/// ```
+/// 
+#[macro_export]
+macro_rules! assert_lt {
     ($left:expr, $right:expr) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
@@ -86,8 +112,17 @@ mod asserts {
         }
     });
 }
-    #[macro_export]
-    macro_rules! assert_le {
+/// Asserts that the left hand side expression is lesser than
+/// or equal to the right hand side expression
+///
+/// # Examples
+/// ```
+/// let a = 200; let b = 100;
+/// assert_gt!(a, b); // This would panic
+/// ```
+/// 
+#[macro_export]
+macro_rules! assert_le {
     ($left:expr, $right:expr) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
@@ -114,7 +149,6 @@ mod asserts {
             }
         }
     });
-}
 }
 #[test]
 #[should_panic]
