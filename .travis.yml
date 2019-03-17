@@ -9,4 +9,8 @@ matrix:
   fast_finish: true
 script:
   - cargo build --verbose --all
+<<<<<<< HEAD
   - cargo test --verbose
+=======
+  - cargo test --verbose --all
+>>>>>>> c75807bcad9ebdf78035492abb1d691c9de7d615
