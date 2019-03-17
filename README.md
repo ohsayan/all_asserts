@@ -1,5 +1,5 @@
 # all_asserts
-### A crate for multiple types of asserts that don't exists in the standard library
+### A crate for multiple types of asserts that don't exist in the standard library
 # Rationale
 There are several kinds of problems that I had faced while writing tests, especially when writing comparator tests.
 The output from the existing macros, were providing _vague_ outputs while debugging which made me write this crate.
