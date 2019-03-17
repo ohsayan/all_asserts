@@ -116,3 +116,23 @@ mod asserts {
     });
 }
 }
+#[test]
+#[should_panic]
+fn panic_when_not_gt() {
+    assert_gt!(4, 4);
+}
+#[test]
+#[should_panic]
+fn panic_when_not_ge() {
+    assert_ge!(3, 4);
+}
+#[test]
+#[should_panic]
+fn panic_when_not_lt() {
+    assert_lt!(4, 4);
+}
+#[test]
+#[should_panic]
+fn panic_when_not_le() {
+    assert_le!(4, 3);
+}
