@@ -14,8 +14,8 @@ macro_rules! assert_gt {
     ($left:expr, $right:expr) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
-                if !(*left_val > *right_val) || (*left_val == *left_val) {
-                    panic!(r#"assertion failed: `(left <= right)`
+                if !(*left_val > *right_val) {
+                    panic!(r#"assertion failed: `(left > right) but here (left <= right)`
   left: `{:?}`,
  right: `{:?}`"#, &*left_val, &*right_val)
                 }
@@ -29,7 +29,7 @@ macro_rules! assert_gt {
         match (&($left), &($right)) {
             (left_val, right_val) => {
                 if !(*left_val > *right_val) {
-                    panic!(r#"assertion failed: `(left <= right)`
+                    panic!(r#"assertion failed: `(left > right) but here (left <= right)`
   left: `{:?}`,
  right: `{:?}`: {}"#, &*left_val, &*right_val,
                            format_args!($($arg)+))
@@ -55,7 +55,7 @@ macro_rules! assert_ge {
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if !(*left_val >= *right_val) {
-                    panic!(r#"assertion failed: `(left < right)`
+                    panic!(r#"assertion failed: `(left >= right) but here (left < right)`
   left: `{:?}`,
  right: `{:?}`"#, &*left_val, &*right_val)
                 }
@@ -69,7 +69,7 @@ macro_rules! assert_ge {
         match (&($left), &($right)) {
             (left_val, right_val) => {
                 if !(*left_val > *right_val) {
-                    panic!(r#"assertion failed: `(left < right)`
+                    panic!(r#"assertion failed: `(left >= right) but here (left < right)`
   left: `{:?}`,
  right: `{:?}`: {}"#, &*left_val, &*right_val,
                            format_args!($($arg)+))
@@ -95,7 +95,7 @@ macro_rules! assert_lt {
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if !(*left_val < *right_val) {
-                    panic!(r#"assertion failed: `(left >= right)`
+                    panic!(r#"assertion failed: `(left < right) but here (left >= right)`
   left: `{:?}`,
  right: `{:?}`"#, &*left_val, &*right_val)
                 }
@@ -109,7 +109,7 @@ macro_rules! assert_lt {
         match (&($left), &($right)) {
             (left_val, right_val) => {
                 if !(*left_val < *right_val) {
-                    panic!(r#"assertion failed: `(left >= right)`
+                    panic!(r#"assertion failed: `(left < right) but here (left >= right)`
   left: `{:?}`,
  right: `{:?}`: {}"#, &*left_val, &*right_val,
                            format_args!($($arg)+))
@@ -135,7 +135,7 @@ macro_rules! assert_le {
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if !(*left_val <= *right_val) {
-                    panic!(r#"assertion failed: `(left > right)`
+                    panic!(r#"assertion failed: `(left <= right) but here (left > right)`
   left: `{:?}`,
  right: `{:?}`"#, &*left_val, &*right_val)
                 }
@@ -149,7 +149,7 @@ macro_rules! assert_le {
         match (&($left), &($right)) {
             (left_val, right_val) => {
                 if !(*left_val <= *right_val) {
-                    panic!(r#"assertion failed: `(left > right)`
+                    panic!(r#"assertion failed: `(left <= right) but here (left > right)`
   left: `{:?}`,
  right: `{:?}`: {}"#, &*left_val, &*right_val,
                            format_args!($($arg)+))
