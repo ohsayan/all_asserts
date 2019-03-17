@@ -3,8 +3,10 @@
 ///
 /// # Examples
 /// ```
+/// # #[macro_use] extern crate all_asserts;
 /// let a = 100; let b = 100;
-/// assert_gt!(a, b); // This would panic
+/// #[cfg(should_panic)]
+/// assert_gt!(a, b);
 /// ```
 /// 
 #[macro_export]
@@ -12,7 +14,7 @@ macro_rules! assert_gt {
     ($left:expr, $right:expr) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
-                if !(*left_val > *right_val) {
+                if !(*left_val > *right_val) || (*left_val == *left_val) {
                     panic!(r#"assertion failed: `(left <= right)`
   left: `{:?}`,
  right: `{:?}`"#, &*left_val, &*right_val)
@@ -41,8 +43,10 @@ macro_rules! assert_gt {
 ///
 /// # Examples
 /// ```
-/// let a = 100; let b = 200;
-/// assert_gt!(a, b); // This would panic
+/// # #[macro_use] extern crate all_asserts;
+/// let a = 200; let b = 100;
+/// #[cfg(should_panic)]
+/// assert_ge!(a, b);
 /// ```
 /// 
 #[macro_export]
@@ -79,8 +83,10 @@ macro_rules! assert_ge {
 ///
 /// # Examples
 /// ```
+/// # #[macro_use] extern crate all_asserts;
 /// let a = 100; let b = 100;
-/// assert_gt!(a, b); // This would panic
+/// #[cfg(should_panic)]
+/// assert_lt!(a, b); // This would panic
 /// ```
 /// 
 #[macro_export]
@@ -117,8 +123,10 @@ macro_rules! assert_lt {
 ///
 /// # Examples
 /// ```
+/// # #[macro_use] extern crate all_asserts;
 /// let a = 200; let b = 100;
-/// assert_gt!(a, b); // This would panic
+/// #[cfg(should_panic)]
+/// assert_le!(a, b); // This would panic
 /// ```
 /// 
 #[macro_export]
