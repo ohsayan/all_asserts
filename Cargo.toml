@@ -10,4 +10,5 @@ keywords = ["assert", "test", "testing", "asserts", "compare"]
 categories = ["development-tools"]
 license = "Apache-2.0"
 license-file = "LICENSE"
+repository = "https://github.com/sntdevco/all_asserts"
 [dependencies]
