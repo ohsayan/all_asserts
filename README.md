@@ -28,10 +28,6 @@ The name of the assert pretty much tells you everything:
 - `assert_lt!(a, b)` -> Will panic if a is not less than b
 - `assert_le!(a, b)` -> Will panic if a is not greater than or equal to b
 
-# Further enhancements
-- [ ] Provide better output for arrays instead of printing the length
-- [ ] Provide better output for strings instead of printing the length
-
 # Building
 
 Simply run:
@@ -49,4 +45,4 @@ $ cargo test
 Your welcome to! 
 > "No man is an island!"
 
-And I always stick to that belief! Please help me out in better formatting the output as mentioned in the [Further Enhancements](#further-enhancements) section. If you find an issue, go ahead a create one! (All doubts, questions, ideas are welcome)
+And I always stick to that belief! Please help me out in better formatting the output to make debugging easier. If you find an issue, go ahead a create one! (All doubts, questions and ideas are welcome)
