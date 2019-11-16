@@ -15,7 +15,7 @@ extern crate all_asserts;
 And now you can use the asserts wherever you like!
 On Panic you should get something like this (the example is from `assert_lt!`):
 ```
-thread 'main' panicked at 'assertion failed: `(left <= right)`
+thread 'main' panicked at 'assertion failed: `(left < right) but here (left >= right)`
   left: `100`,
  right: `200`', src/main.rs:79:5
 ```
