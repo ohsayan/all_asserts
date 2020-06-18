@@ -1,6 +1,6 @@
 [package]
 name = "all_asserts"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["Sayan Nandan <nandansayan@outlook.com>"]
 edition = "2018"
 description = "A crate for multiple types of asserts that don't exist in the standard library"
