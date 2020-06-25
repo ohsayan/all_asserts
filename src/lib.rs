@@ -174,7 +174,7 @@ macro_rules! assert_range {
             (left_val, right_val) => {
                 if !(left_val.contains(right_val)) {
                     panic!(
-                        r#"assertion failed: `{} is not in range of {:?}`: it should have been in this range"#,
+                        r#"assertion failed: `{} is not in range of {:?}` - it should have been in this range"#,
                         right_val,
                         left_val
                     )
@@ -185,6 +185,20 @@ macro_rules! assert_range {
     ($left:expr, $right:expr,) => {
         assert_range!($left, $right)
     };
+    ($left:expr, $right:expr, $($arg:tt)+) => ({
+        match (&($left), &($right)) {
+            (left_val, right_val) => {
+                if !(left_val.contains(right_val)) {
+                    panic!(
+                        r#"assertion failed: `{} is not in range of {:?}` - it should have been in this range: {}"#,
+                        right_val,
+                        left_val,
+                        format_args!($($arg)+)
+                    )
+                }
+            }
+        }
+    });
 }
 /// Asserts that the right hand side expression is not
 /// within the range on the left hand side
@@ -202,7 +216,7 @@ macro_rules! assert_nrange {
             (left_val, right_val) => {
                 if (left_val.contains(right_val)) {
                     panic!(
-                        r#"assertion failed: `{} is in range of {:?}`: it should not have been in this range"#,
+                        r#"assertion failed: `{} is in range of {:?}` - it should not have been in this range"#,
                         right_val,
                         left_val
                     )
@@ -213,6 +227,20 @@ macro_rules! assert_nrange {
     ($left:expr, $right:expr,) => {
         assert_nrange!($left, $right)
     };
+    ($left:expr, $right:expr, $($arg:tt)+) => ({
+        match (&($left), &($right)) {
+            (left_val, right_val) => {
+                if (left_val.contains(right_val)) {
+                    panic!(
+                        r#"assertion failed: `{} is in range of {:?}` - it should not have been in this range: {}"#,
+                        right_val,
+                        left_val,
+                        format_args!($($arg)+)
+                    )
+                }
+            }
+        }
+    });
 }
 #[test]
 #[should_panic]
@@ -238,6 +266,7 @@ fn panic_when_not_le() {
 fn test_assert_range_pass() {
     assert_range!((0..=10), 10);
     assert_range!((1.0..2.0), 1.5);
+    assert_range!((1.0..2.0), 1.3);
 }
 #[test]
 #[should_panic]
@@ -255,4 +284,16 @@ fn test_assert_nrange_pass() {
 fn test_assert_nrange_fail() {
     assert_nrange!((10..=20), 20);
     assert_nrange!((1.0..=2.0), 2.0);
+}
+#[test]
+#[should_panic]
+fn test_assert_range_with_fail_msg() {
+    // Assert with a message
+    assert_range!((1.0..=2.0), 2.1, "Failed to assert that 2.1 is in the interval [1.0,2.0]");
+}
+#[test]
+#[should_panic]
+fn test_assert_nrange_with_fail_msg() {
+    // Assert with a message
+    assert_nrange!((1.0..2.0), 1.5, "Oops! 1.5 is in the interval [1.0,2.0)")
 }
