@@ -6,14 +6,27 @@ The output from the existing macros, were providing _vague_ outputs while debugg
 I had created an RFC, but neverthless it was rejected as there were not enough use cases. I am not too sure about others, but I find myself writing multiple tests that make use of these asserts.
 
 # Importing and using
-
 Add these lines to your rust application:
 ```rust
 #[macro_use]
-extern crate all_asserts;
+use all_asserts;
 ```
 And now you can use the asserts wherever you like!
-On Panic you should get something like this (the example is from `assert_lt!`):
+
+An example using `assert_range!`:
+```
+use all_asserts::assert_range;
+fn main() {
+    assert_range!((10..20), 20);
+}
+```
+This outputs something like:
+```
+thread 'main' panicked at 'assertion failed: 
+`20 is not in range of 10..20` : it should have been in this range
+```
+
+An example using `assert_lt!`:
 ```
 thread 'main' panicked at 'assertion failed: `(left < right) but here (left >= right)`
   left: `100`,
@@ -27,6 +40,8 @@ The name of the assert pretty much tells you everything:
 - `assert_ge!(a, b)` -> Will panic if a is not greater than or equal to b
 - `assert_lt!(a, b)` -> Will panic if a is not less than b
 - `assert_le!(a, b)` -> Will panic if a is not greater than or equal to b
+- `assert_range((x..y), b)` -> Will panic if b is not within the range [x, y)
+- `assert_nrange((x..y), b)` -> Will panic if b is within the range [x, y)
 
 # Building
 
@@ -46,3 +61,6 @@ Your welcome to!
 > "No man is an island!"
 
 And I always stick to that belief! Please help me out in better formatting the output to make debugging easier. If you find an issue, go ahead a create one! (All doubts, questions and ideas are welcome)
+
+# License
+This project is licensed under the Apache-2.0 License.

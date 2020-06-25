@@ -1,6 +1,11 @@
 # Changelog
 All changes in this project will be noted in this file.
 
+## Version 2.0.1 [2020-06-25]
+> This release doesn't introduce breaking changes
+
+Fix documentation issues
+
 ## Version 2.0.0 [2020-06-25]
 > This release doesn't introduce breaking changes
 

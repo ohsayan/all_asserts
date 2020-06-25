@@ -1,11 +1,11 @@
 [package]
 name = "all_asserts"
-version = "2.0.0"
+version = "2.0.1"
 authors = ["Sayan Nandan <nandansayan@outlook.com>"]
 edition = "2018"
 description = "A crate for multiple types of asserts that don't exist in the standard library"
 documentation = "https://docs.rs/all_asserts/0.1.4"
-readme = "CRATE.md"
+readme = "README.md"
 keywords = ["assert", "test", "testing", "asserts", "compare"]
 categories = ["development-tools"]
 license = "Apache-2.0"
