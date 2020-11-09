@@ -38,6 +38,11 @@ macro_rules! assert_gt {
             }
         });
     }
+
+#[macro_export]
+macro_rules! debug_assert_gt {
+    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_gt!($($arg)*); })
+}
 /// Asserts that the left hand side expression is greater
 /// than or equal to the right hand side expression
 ///
@@ -78,6 +83,12 @@ macro_rules! assert_ge {
         }
     });
 }
+
+#[macro_export]
+macro_rules! debug_assert_ge {
+    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_ge!($($arg)*); })
+}
+
 /// Asserts that the left hand side expression is lesser
 /// than the right hand side expression
 ///
@@ -118,6 +129,12 @@ macro_rules! assert_lt {
         }
     });
 }
+
+#[macro_export]
+macro_rules! debug_assert_lt {
+    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_lt!($($arg)*); })
+}
+
 /// Asserts that the left hand side expression is lesser than
 /// or equal to the right hand side expression
 ///
@@ -158,6 +175,12 @@ macro_rules! assert_le {
         }
     });
 }
+
+#[macro_export]
+macro_rules! debug_assert_le {
+    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_le!($($arg)*); })
+}
+
 /// Asserts that the right hand side expression is
 /// within the range on the left hand side
 ///
@@ -200,6 +223,12 @@ macro_rules! assert_range {
         }
     });
 }
+
+#[macro_export]
+macro_rules! debug_assert_range {
+    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_range!($($arg)*); })
+}
+
 /// Asserts that the right hand side expression is not
 /// within the range on the left hand side
 ///
@@ -242,6 +271,12 @@ macro_rules! assert_nrange {
         }
     });
 }
+
+#[macro_export]
+macro_rules! debug_assert_nrange {
+    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_nrange!($($arg)*); })
+}
+
 #[test]
 #[should_panic]
 fn panic_when_not_gt() {
@@ -289,7 +324,11 @@ fn test_assert_nrange_fail() {
 #[should_panic]
 fn test_assert_range_with_fail_msg() {
     // Assert with a message
-    assert_range!((1.0..=2.0), 2.1, "Failed to assert that 2.1 is in the interval [1.0,2.0]");
+    assert_range!(
+        (1.0..=2.0),
+        2.1,
+        "Failed to assert that 2.1 is in the interval [1.0,2.0]"
+    );
 }
 #[test]
 #[should_panic]
