@@ -1,5 +1,12 @@
 # Changelog
+
 All changes in this project will be noted in this file.
+
+## Version 2.2.0 [2020-11-10]
+
+> This release doesn't introduce breaking changes
+
+Added `debug_*` variants for macros
 
 ## Version 2.1.0 [2020-06-25]
 
@@ -23,7 +30,7 @@ Fix documentation issues
 
 > This release doesn't introduce breaking changes
 
-Added new macros: `assert_range!` , `assert_nrange!` 
+Added new macros: `assert_range!` , `assert_nrange!`
 
 ## Version 1.0.1 [2020-06-18]
 

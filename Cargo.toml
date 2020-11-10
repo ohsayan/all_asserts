@@ -1,10 +1,10 @@
 [package]
 name = "all_asserts"
-version = "2.1.0"
+version = "2.2.0"
 authors = ["Sayan Nandan <nandansayan@outlook.com>"]
 edition = "2018"
 description = "A crate for multiple types of asserts that don't exist in the standard library"
-documentation = "https://docs.rs/all_asserts/0.1.4"
+documentation = "https://docs.rs/all_asserts"
 readme = "README.md"
 keywords = ["assert", "test", "testing", "asserts", "compare"]
 categories = ["development-tools"]
