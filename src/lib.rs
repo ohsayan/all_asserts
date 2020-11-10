@@ -1,3 +1,9 @@
+//! # `all_asserts`
+//!
+//! The `all_asserts` crate provides multiple assert macros which aren't there in the
+//! standard library. These macros provide extremely useful outputs and can be used for
+//! writing better tests.
+
 /// Asserts that the left hand side expression is greater
 /// than the right hand side expression
 ///
@@ -39,6 +45,9 @@ macro_rules! assert_gt {
         });
     }
 
+/// This is a debug-only variant of the [`assert_gt`] macro
+///
+/// [`assert_gt`]: ./macro.assert_gt.html
 #[macro_export]
 macro_rules! debug_assert_gt {
     ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_gt!($($arg)*); })
@@ -84,6 +93,9 @@ macro_rules! assert_ge {
     });
 }
 
+/// This is a debug-only variant of the [`assert_ge`] macro
+///
+/// [`assert_ge`]: ./macro.assert_ge.html
 #[macro_export]
 macro_rules! debug_assert_ge {
     ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_ge!($($arg)*); })
@@ -130,6 +142,9 @@ macro_rules! assert_lt {
     });
 }
 
+/// This is a debug-only variant of the [`assert_lt`] macro
+///
+/// [`assert_lt`]: ./macro.assert_lt.html
 #[macro_export]
 macro_rules! debug_assert_lt {
     ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_lt!($($arg)*); })
@@ -176,6 +191,9 @@ macro_rules! assert_le {
     });
 }
 
+/// This is a debug-only variant of the [`assert_le`] macro
+///
+/// [`assert_le`]: ./macro.assert_le.html
 #[macro_export]
 macro_rules! debug_assert_le {
     ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_le!($($arg)*); })
@@ -224,6 +242,9 @@ macro_rules! assert_range {
     });
 }
 
+/// This is a debug-only variant of the [`assert_range`] macro
+///
+/// [`assert_range`]: ./macro.assert_range.html
 #[macro_export]
 macro_rules! debug_assert_range {
     ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_range!($($arg)*); })
@@ -272,6 +293,9 @@ macro_rules! assert_nrange {
     });
 }
 
+/// This is a debug-only variant of the [`assert_nrange`] macro
+///
+/// [`assert_nrange`]: ./macro.assert_nrange.html
 #[macro_export]
 macro_rules! debug_assert_nrange {
     ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_nrange!($($arg)*); })
