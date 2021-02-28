@@ -4,6 +4,102 @@
 //! standard library. These macros provide extremely useful outputs and can be used for
 //! writing better tests.
 
+/// Asserts that the expression is true
+///
+/// # Examples
+/// ```
+/// # #[macro_use] use all_asserts;
+/// let a = false;
+/// #[cfg(should_panic)]
+/// assert_true!(a);
+///
+/// ```
+/// # #[macro_use] use all_asserts;
+/// let a = true;
+/// assert_true!(a);
+/// ```
+///
+#[macro_export]
+macro_rules! assert_true {
+    ($cond:expr $(,)?) => ({
+        match (&$cond) {
+            cond_val => {
+                if !*cond_val {
+                    panic!(r#"assertion failed: `true but here false`"#)
+                }
+            }
+        }
+    });
+    ($cond:expr,) => {
+        assert_true!($cond)
+    };
+    ($cond:expr, $($arg:tt)+) => ({
+        match (&$cond) {
+            cond_val => {
+                if !*cond_val {
+                    panic!(r#"assertion failed: `true but here false`"#)
+                    }
+                }
+            }
+        });
+    }
+
+/// This is a debug-only variant of the [`assert_true`] macro
+///
+/// [`assert_true`]: ./macro.assert_true.html
+#[macro_export]
+macro_rules! debug_assert_true {
+    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_true!($($arg)*); })
+}
+
+/// Asserts that the expression is false
+///
+/// # Examples
+/// ```
+/// # #[macro_use] use all_asserts;
+/// let a = true;
+/// #[cfg(should_panic)]
+/// assert_false!(a);
+///
+/// ```
+/// # #[macro_use] use all_asserts;
+/// let a = false;
+/// assert_false!(a);
+/// ```
+///
+#[macro_export]
+macro_rules! assert_false {
+    ($cond:expr $(,)?) => ({
+        match (&$cond) {
+            cond_val => {
+                if *cond_val {
+                    panic!(r#"assertion failed: `false but here true`"#)
+                }
+            }
+        }
+    });
+    ($cond:expr,) => {
+        assert_false!($cond)
+    };
+    ($cond:expr, $($arg:tt)+) => ({
+        match (&$cond) {
+            cond_val => {
+                if *cond_val {
+                    panic!(r#"assertion failed: `false but here true`"#)
+                    }
+                }
+            }
+        });
+    }
+
+/// This is a debug-only variant of the [`assert_false`] macro
+///
+/// [`assert_false`]: ./macro.assert_false.html
+#[macro_export]
+macro_rules! debug_assert_false {
+    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_false!($($arg)*); })
+}
+
 /// Asserts that the left hand side expression is greater
 /// than the right hand side expression
 ///
@@ -301,6 +397,24 @@ macro_rules! debug_assert_nrange {
     ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_nrange!($($arg)*); })
 }
 
+#[test]
+#[should_panic]
+fn panic_when_not_true() {
+    assert_true!(false);
+}
+#[test]
+fn do_not_panic_when_true() {
+    assert_true!(true);
+}
+#[test]
+#[should_panic]
+fn panic_when_not_false() {
+    assert_false!(true);
+}
+#[test]
+fn do_not_panic_when_false() {
+    assert_false!(false);
+}
 #[test]
 #[should_panic]
 fn panic_when_not_gt() {
