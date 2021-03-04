@@ -76,6 +76,8 @@ The name of the assert pretty much tells you everything:
 * `assert_le!(a, b)` -> Will panic if a is not greater than or equal to b
 * `assert_range!((x..y), b)` -> Will panic if b is not within the range [x, y)
 * `assert_nrange!((x..y), b)` -> Will panic if b is within the range [x, y)
+* `assert_true!(a)` -> Will panic if a is not true
+* `assert_false!(b)` -> Will panic if a is not false
 
 `debug_*` variants of the macros are also available, which only work on builds with debug assertions enabled (usually builds produced by running `cargo build` or `cargo test` ).
 
