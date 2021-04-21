@@ -388,6 +388,59 @@ macro_rules! assert_nrange {
         }
     });
 }
+/// Asserts that the right hand side expression is
+/// within the range on the left hand side
+///
+/// # Examples
+/// ```
+/// # #[macro_use] use all_asserts::assert_near;
+/// assert_near!(100.0, 100.9, 1.0);
+/// assert_near!(100.9, 100.0, 1.0);
+/// ```
+///
+#[macro_export]
+macro_rules! assert_near {
+    ($left:expr, $right:expr, $epsilon:expr) => ({
+        match (&$left, &$right, &$epsilon) {
+            (left_val, right_val, epsilon_val) => {
+                if (*left_val > (*right_val + *epsilon_val)) || (*left_val < (*right_val - *epsilon_val)) {
+                    panic!(
+                        r#"assertion failed: `{} is not within epsilon {} of {}`"#,
+                        right_val,
+                        epsilon_val,
+                        left_val
+                    )
+                }
+            }
+        }
+    });
+    ($left:expr, $right:expr, $epsilon:expr,) => {
+        assert_near!($left, $right, $epsilon)
+    };
+    ($left:expr, $right:expr, $epsilon:expr, $($arg:tt)+) => ({
+        match (&($left), &($right), &($epsilon)) {
+            (left_val, right_val, epsilon_val) => {
+                if (*left_val > (*right_val + *epsilon_val)) || (*left_val < (*right_val - *epsilon_val)) {
+                    panic!(
+                        r#"assertion failed: `{} is not within epsilon {} of {}`"#,
+                        right_val,
+                        epsilon_val,
+                        left_val,
+                        format_args!($($arg)+)
+                    )
+                }
+            }
+        }
+    });
+}
+
+/// This is a debug-only variant of the [`assert_near`] macro
+///
+/// [`assert_near`]: ./macro.assert_near.html
+#[macro_export]
+macro_rules! debug_assert_near {
+    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_near!($($arg)*); })
+}
 
 /// This is a debug-only variant of the [`assert_nrange`] macro
 ///
@@ -473,4 +526,20 @@ fn test_assert_range_with_fail_msg() {
 fn test_assert_nrange_with_fail_msg() {
     // Assert with a message
     assert_nrange!((1.0..2.0), 1.5, "Oops! 1.5 is in the interval [1.0,2.0)")
+}
+#[test]
+fn test_assert_near_pass() {
+    assert_near!(0.0, 0.0, 0.1);
+    assert_near!(1.0f32, (1.0f32 + f32::EPSILON), f32::EPSILON);
+    assert_near!(1.0f32, (1.0f32 - f32::EPSILON), f32::EPSILON);
+}
+#[test]
+#[should_panic(expected = "assertion failed: `1.0000002 is not within epsilon 0.00000011920929 of 1")]
+fn test_assert_near_fail_high() {
+    assert_near!(1.0f32, (1.0f32 + f32::EPSILON + f32::EPSILON), f32::EPSILON);
+}
+#[test]
+#[should_panic(expected = "assertion failed: `0.99999976 is not within epsilon 0.00000011920929 of 1")]
+fn test_assert_near_fail_low() {
+    assert_near!(1.0f32, (1.0f32 - f32::EPSILON - f32::EPSILON), f32::EPSILON);
 }
