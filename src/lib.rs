@@ -355,6 +355,78 @@ macro_rules! debug_assert_near {
     ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_near!($($arg)*); })
 }
 
+/// Asserts that the expression is true
+///
+/// # Examples
+/// ```
+/// # #[macro_use] use all_asserts;
+/// let a = false;
+/// #[cfg(should_panic)]
+/// assert_true!(a);
+///
+/// ```
+/// # #[macro_use] use all_asserts;
+/// let a = true;
+/// assert_true!(a);
+/// ```
+///
+#[macro_export]
+macro_rules! assert_true {
+    ($cond:expr $(,)?) => ({
+        assert!($cond)
+    });
+    ($cond:expr,) => {
+        assert!($cond)
+    };
+    ($cond:expr, $($arg:tt)+) => ({
+        assert!($cond, $($arg)+)
+    });
+}
+
+/// This is a debug-only variant of the [`assert_true`] macro
+///
+/// [`assert_true`]: ./macro.assert_true.html
+#[macro_export]
+macro_rules! debug_assert_true {
+    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_true!($($arg)*); })
+}
+
+/// Asserts that the expression is false
+///
+/// # Examples
+/// ```
+/// # #[macro_use] use all_asserts;
+/// let a = true;
+/// #[cfg(should_panic)]
+/// assert_false!(a);
+///
+/// ```
+/// # #[macro_use] use all_asserts;
+/// let a = false;
+/// assert_false!(a);
+/// ```
+///
+#[macro_export]
+macro_rules! assert_false {
+    ($cond:expr $(,)?) => ({
+        assert!(!$cond)
+    });
+    ($cond:expr,) => {
+        assert!(!$cond)
+    };
+    ($cond:expr, $($arg:tt)+) => ({
+        assert!(!$cond, $($arg)+)
+    });
+}
+
+/// This is a debug-only variant of the [`assert_false`] macro
+///
+/// [`assert_false`]: ./macro.assert_false.html
+#[macro_export]
+macro_rules! debug_assert_false {
+    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_false!($($arg)*); })
+}
+
 #[test]
 #[should_panic]
 fn panic_when_not_gt() {
@@ -429,4 +501,44 @@ fn test_assert_near_fail_high() {
 #[should_panic(expected = "assertion failed: `0.99999976 is not within epsilon 0.00000011920929 of 1")]
 fn test_assert_near_fail_low() {
     assert_near!(1.0f32, (1.0f32 - f32::EPSILON - f32::EPSILON), f32::EPSILON);
+}
+#[test]
+#[should_panic]
+fn panic_when_not_true() {
+    assert_true!(false);
+}
+#[test]
+fn do_not_panic_when_true() {
+    assert_true!(true);
+}
+#[test]
+#[should_panic(expected = "a = 3, b = 28")]
+fn panic_when_not_true_including_message() {
+    let a = 3; let b = 28;
+    assert_true!(a + b == 30, "a = {}, b = {}", a, b);
+}
+#[test]
+fn do_not_panic_when_true_and_do_not_emit_message() {
+    let a = 3; let b = 27;
+    assert_true!(a + b == 30, "a = {}, b = {}", a, b);
+}
+#[test]
+#[should_panic]
+fn panic_when_not_false() {
+    assert_false!(true);
+}
+#[test]
+fn do_not_panic_when_false() {
+    assert_false!(false);
+}
+#[test]
+#[should_panic(expected = "a = 3, b = 27")]
+fn panic_when_not_false_including_message() {
+    let a = 3; let b = 27;
+    assert_false!(a + b == 30, "a = {}, b = {}", a, b);
+}
+#[test]
+fn do_not_panic_when_false_and_do_not_emit_message() {
+    let a = 3; let b = 28;
+    assert_false!(a + b == 30, "a = {}, b = {}", a, b);
 }
