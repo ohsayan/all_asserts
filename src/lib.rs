@@ -50,7 +50,7 @@ macro_rules! assert_gt {
 /// [`assert_gt`]: ./macro.assert_gt.html
 #[macro_export]
 macro_rules! debug_assert_gt {
-    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_gt!($($arg)*); })
+    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_gt!($($arg)*); })
 }
 /// Asserts that the left hand side expression is greater
 /// than or equal to the right hand side expression
@@ -98,7 +98,7 @@ macro_rules! assert_ge {
 /// [`assert_ge`]: ./macro.assert_ge.html
 #[macro_export]
 macro_rules! debug_assert_ge {
-    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_ge!($($arg)*); })
+    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_ge!($($arg)*); })
 }
 
 /// Asserts that the left hand side expression is lesser
@@ -147,7 +147,7 @@ macro_rules! assert_lt {
 /// [`assert_lt`]: ./macro.assert_lt.html
 #[macro_export]
 macro_rules! debug_assert_lt {
-    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_lt!($($arg)*); })
+    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_lt!($($arg)*); })
 }
 
 /// Asserts that the left hand side expression is lesser than
@@ -196,7 +196,7 @@ macro_rules! assert_le {
 /// [`assert_le`]: ./macro.assert_le.html
 #[macro_export]
 macro_rules! debug_assert_le {
-    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_le!($($arg)*); })
+    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_le!($($arg)*); })
 }
 
 /// Asserts that the right hand side expression is
@@ -247,7 +247,7 @@ macro_rules! assert_range {
 /// [`assert_range`]: ./macro.assert_range.html
 #[macro_export]
 macro_rules! debug_assert_range {
-    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_range!($($arg)*); })
+    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_range!($($arg)*); })
 }
 
 /// Asserts that the right hand side expression is not
@@ -298,7 +298,7 @@ macro_rules! assert_nrange {
 /// [`assert_nrange`]: ./macro.assert_nrange.html
 #[macro_export]
 macro_rules! debug_assert_nrange {
-    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_nrange!($($arg)*); })
+    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_nrange!($($arg)*); })
 }
 
 /// Asserts that the right hand side expression is
@@ -352,7 +352,7 @@ macro_rules! assert_near {
 /// [`assert_near`]: ./macro.assert_near.html
 #[macro_export]
 macro_rules! debug_assert_near {
-    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_near!($($arg)*); })
+    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_near!($($arg)*); })
 }
 
 /// Asserts that the expression is true
@@ -388,7 +388,7 @@ macro_rules! assert_true {
 /// [`assert_true`]: ./macro.assert_true.html
 #[macro_export]
 macro_rules! debug_assert_true {
-    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_true!($($arg)*); })
+    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_true!($($arg)*); })
 }
 
 /// Asserts that the expression is false
@@ -424,7 +424,7 @@ macro_rules! assert_false {
 /// [`assert_false`]: ./macro.assert_false.html
 #[macro_export]
 macro_rules! debug_assert_false {
-    ($($arg:tt)*) => (if $crate::cfg!(debug_assertions) { assert_false!($($arg)*); })
+    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_false!($($arg)*); })
 }
 
 #[test]
@@ -493,12 +493,16 @@ fn test_assert_near_pass() {
     assert_near!(1.0f32, (1.0f32 - f32::EPSILON), f32::EPSILON);
 }
 #[test]
-#[should_panic(expected = "assertion failed: `1.0000002 is not within epsilon 0.00000011920929 of 1")]
+#[should_panic(
+    expected = "assertion failed: `1.0000002 is not within epsilon 0.00000011920929 of 1"
+)]
 fn test_assert_near_fail_high() {
     assert_near!(1.0f32, (1.0f32 + f32::EPSILON + f32::EPSILON), f32::EPSILON);
 }
 #[test]
-#[should_panic(expected = "assertion failed: `0.99999976 is not within epsilon 0.00000011920929 of 1")]
+#[should_panic(
+    expected = "assertion failed: `0.99999976 is not within epsilon 0.00000011920929 of 1"
+)]
 fn test_assert_near_fail_low() {
     assert_near!(1.0f32, (1.0f32 - f32::EPSILON - f32::EPSILON), f32::EPSILON);
 }
@@ -514,12 +518,14 @@ fn do_not_panic_when_true() {
 #[test]
 #[should_panic(expected = "a = 3, b = 28")]
 fn panic_when_not_true_including_message() {
-    let a = 3; let b = 28;
+    let a = 3;
+    let b = 28;
     assert_true!(a + b == 30, "a = {}, b = {}", a, b);
 }
 #[test]
 fn do_not_panic_when_true_and_do_not_emit_message() {
-    let a = 3; let b = 27;
+    let a = 3;
+    let b = 27;
     assert_true!(a + b == 30, "a = {}, b = {}", a, b);
 }
 #[test]
@@ -534,11 +540,13 @@ fn do_not_panic_when_false() {
 #[test]
 #[should_panic(expected = "a = 3, b = 27")]
 fn panic_when_not_false_including_message() {
-    let a = 3; let b = 27;
+    let a = 3;
+    let b = 27;
     assert_false!(a + b == 30, "a = {}, b = {}", a, b);
 }
 #[test]
 fn do_not_panic_when_false_and_do_not_emit_message() {
-    let a = 3; let b = 28;
+    let a = 3;
+    let b = 28;
     assert_false!(a + b == 30, "a = {}, b = {}", a, b);
 }
