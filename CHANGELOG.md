@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 2.3.0 [2021-09-13]
+
+> This release doesn't introduce breaking changes
+
+## Additions
+
+- Added the `assert_true`, `assert_false`, `assert_near` macros
+
 All changes in this project will be noted in this file.
 
 ## Version 2.2.0 [2020-11-10]
@@ -16,7 +24,7 @@ Enable adding messages to the `assert_range!` and `assert_nrange!` outputs.
 
 Example:
 
-``` rust
+```rust
 assert_nrange!((1.0..2.0), 1.5, "Oops! 1.5 is in the interval [1.0,2.0)")
 ```
 

@@ -17,7 +17,7 @@
 ///
 #[macro_export]
 macro_rules! assert_gt {
-    ($left:expr, $right:expr) => ({
+    ($left:expr, $right:expr $(,)?) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if !(*left_val > *right_val) {
@@ -28,9 +28,6 @@ macro_rules! assert_gt {
             }
         }
     });
-    ($left:expr, $right:expr,) => {
-        assert_gt!($left, $right)
-    };
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
@@ -65,7 +62,7 @@ macro_rules! debug_assert_gt {
 ///
 #[macro_export]
 macro_rules! assert_ge {
-    ($left:expr, $right:expr) => ({
+    ($left:expr, $right:expr $(,)?) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if !(*left_val >= *right_val) {
@@ -76,9 +73,6 @@ macro_rules! assert_ge {
             }
         }
     });
-    ($left:expr, $right:expr,) => {
-        assert_ge!($left, $right)
-    };
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
@@ -114,7 +108,7 @@ macro_rules! debug_assert_ge {
 ///
 #[macro_export]
 macro_rules! assert_lt {
-    ($left:expr, $right:expr) => ({
+    ($left:expr, $right:expr $(,)?) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if !(*left_val < *right_val) {
@@ -125,9 +119,6 @@ macro_rules! assert_lt {
             }
         }
     });
-    ($left:expr, $right:expr,) => {
-        assert_lt!($left, $right)
-    };
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
@@ -163,7 +154,7 @@ macro_rules! debug_assert_lt {
 ///
 #[macro_export]
 macro_rules! assert_le {
-    ($left:expr, $right:expr) => ({
+    ($left:expr, $right:expr $(,)?) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if !(*left_val <= *right_val) {
@@ -174,9 +165,6 @@ macro_rules! assert_le {
             }
         }
     });
-    ($left:expr, $right:expr,) => {
-        assert_le!($left, $right)
-    };
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
@@ -223,9 +211,6 @@ macro_rules! assert_range {
             }
         }
     });
-    ($left:expr, $right:expr,) => {
-        assert_range!($left, $right)
-    };
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
@@ -261,7 +246,7 @@ macro_rules! debug_assert_range {
 ///
 #[macro_export]
 macro_rules! assert_nrange {
-    ($left:expr, $right:expr) => ({
+    ($left:expr, $right:expr $(,)?) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if (left_val.contains(right_val)) {
@@ -274,9 +259,6 @@ macro_rules! assert_nrange {
             }
         }
     });
-    ($left:expr, $right:expr,) => {
-        assert_nrange!($left, $right)
-    };
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
@@ -313,7 +295,7 @@ macro_rules! debug_assert_nrange {
 ///
 #[macro_export]
 macro_rules! assert_near {
-    ($left:expr, $right:expr, $epsilon:expr) => ({
+    ($left:expr, $right:expr, $epsilon:expr $(,)?) => ({
         match (&$left, &$right, &$epsilon) {
             (left_val, right_val, epsilon_val) => {
                 if (*left_val > (*right_val + *epsilon_val)) || (*left_val < (*right_val - *epsilon_val)) {
@@ -327,10 +309,7 @@ macro_rules! assert_near {
             }
         }
     });
-    ($left:expr, $right:expr, $epsilon:expr,) => {
-        assert_near!($left, $right, $epsilon)
-    };
-    ($left:expr, $right:expr, $epsilon:expr, $($arg:tt)+) => ({
+    ($left:expr, $right:expr, $epsilon:expr, $($arg:tt)+ $(,)?) => ({
         match (&($left), &($right), &($epsilon)) {
             (left_val, right_val, epsilon_val) => {
                 if (*left_val > (*right_val + *epsilon_val)) || (*left_val < (*right_val - *epsilon_val)) {
@@ -359,13 +338,10 @@ macro_rules! debug_assert_near {
 ///
 /// # Examples
 /// ```
-/// # #[macro_use] use all_asserts;
+/// use all_asserts::assert_true;
 /// let a = false;
 /// #[cfg(should_panic)]
 /// assert_true!(a);
-///
-/// ```
-/// # #[macro_use] use all_asserts;
 /// let a = true;
 /// assert_true!(a);
 /// ```
@@ -375,9 +351,6 @@ macro_rules! assert_true {
     ($cond:expr $(,)?) => ({
         assert!($cond)
     });
-    ($cond:expr,) => {
-        assert!($cond)
-    };
     ($cond:expr, $($arg:tt)+) => ({
         assert!($cond, $($arg)+)
     });
@@ -395,13 +368,10 @@ macro_rules! debug_assert_true {
 ///
 /// # Examples
 /// ```
-/// # #[macro_use] use all_asserts;
+/// use all_asserts::assert_false;
 /// let a = true;
 /// #[cfg(should_panic)]
 /// assert_false!(a);
-///
-/// ```
-/// # #[macro_use] use all_asserts;
 /// let a = false;
 /// assert_false!(a);
 /// ```
@@ -411,9 +381,6 @@ macro_rules! assert_false {
     ($cond:expr $(,)?) => ({
         assert!(!$cond)
     });
-    ($cond:expr,) => {
-        assert!(!$cond)
-    };
     ($cond:expr, $($arg:tt)+) => ({
         assert!(!$cond, $($arg)+)
     });
