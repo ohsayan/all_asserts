@@ -9,7 +9,7 @@
 ///
 /// # Examples
 /// ```
-/// # #[macro_use] use all_asserts;
+/// use all_asserts::assert_gt;
 /// let a = 100; let b = 100;
 /// #[cfg(should_panic)]
 /// assert_gt!(a, b);
