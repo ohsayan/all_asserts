@@ -12,34 +12,39 @@ I had created an RFC, but neverthless it was rejected as there were not enough u
 
 Add this to your `Cargo.toml` :
 
-``` toml
+```toml
 all_asserts = "*"
 ```
 
-And now you can use the asserts wherever you like!
+And now you can use the asserts wherever you like! If you want to make it available all across
+your crate, in your `lib.rs` or `main.rs`, add the following:
+
+```rust
+#[macro_use]
+extern crate all_asserts;
+```
+
+## Examples
 
 An example using `assert_range!` :
 
-```rust 
-use all_asserts::assert_range; 
+```rust
+use all_asserts::assert_range;
 fn main() {
-
-    assert_range!((10..20), 20);
-
+  assert_range!((10..20), 20);
 }
+```
 
-``` 
 This outputs something like:
 
 ```
-
-thread 'main' panicked at 'assertion failed: 
+thread 'main' panicked at 'assertion failed:
 `20 is not in range of 10..20` - it should have been in this range, src/main.rs:292:5
+```
 
-``` 
 You can even use decimal ranges! For example:
 
-``` rust
+```rust
 use all_asserts::{assert_range, assert_nrange};
 fn main() {
   assert_range!((1.0..=2.0), 1.5);
@@ -52,13 +57,13 @@ fn main() {
 
 This outputs:
 
-``` 
+```
 thread 'main' panicked at 'assertion failed: `1.5 is in range of 1.0..2.0` - it should not have been in this range: Oops! 1.5 is in the interval [1.0,2.0]', src/main.rs:295:5
 ```
 
 An example using `assert_lt!` :
 
-``` 
+```
 thread 'main' panicked at 'assertion failed: `(left < right) but here (left >= right)`
   left: `100` ,
  right: `200` ', src/main.rs:79:5
@@ -70,23 +75,23 @@ Isn't that much better than what the current macros provide? Well, I'll leave yo
 
 The name of the assert pretty much tells you everything:
 
-* `assert_gt!(a, b)` -> Will panic if a is not greater than b
-* `assert_ge!(a, b)` -> Will panic if a is not greater than or equal to b
-* `assert_lt!(a, b)` -> Will panic if a is not less than b
-* `assert_le!(a, b)` -> Will panic if a is not greater than or equal to b
-* `assert_range!((x..y), b)` -> Will panic if b is not within the range [x, y)
-* `assert_nrange!((x..y), b)` -> Will panic if b is within the range [x, y)
-* `assert_near!(a, b, e)` -> Will panic if b is not within +/- e of a; i.e. b is within the range [a - e, a + e]
-* `assert_true!(a)` -> Will panic if a is not true
-* `assert_false!(a)` -> Will panic if a is not false
-  
+- `assert_gt!(a, b)` -> Will panic if a is not greater than b
+- `assert_ge!(a, b)` -> Will panic if a is not greater than or equal to b
+- `assert_lt!(a, b)` -> Will panic if a is not less than b
+- `assert_le!(a, b)` -> Will panic if a is not greater than or equal to b
+- `assert_range!((x..y), b)` -> Will panic if b is not within the range [x, y)
+- `assert_nrange!((x..y), b)` -> Will panic if b is within the range [x, y)
+- `assert_near!(a, b, e)` -> Will panic if b is not within +/- e of a; i.e. b is within the range [a - e, a + e]
+- `assert_true!(a)` -> Will panic if a is not true
+- `assert_false!(a)` -> Will panic if a is not false
+
 `debug_*` variants of the macros are also available, which only work on builds with debug assertions enabled (usually builds produced by running `cargo build` or `cargo test` ).
 
 ## Building
 
 Simply run:
 
-``` shell
+```shell
 $ git clone https://github.com/ohsayan/all_asserts.git
 $ cd all_asserts
 $ cargo build
@@ -94,13 +99,13 @@ $ cargo build
 
 And for testing:
 
-``` shell
+```shell
 $ cargo test
 ```
 
 ## Contributing
 
-Your welcome to! 
+Your welcome to!
 
 > "No man is an island!"
 
