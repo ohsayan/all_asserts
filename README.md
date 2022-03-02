@@ -31,7 +31,7 @@ An example using `assert_range!` :
 ```rust
 use all_asserts::assert_range;
 fn main() {
-  assert_range!((10..20), 20);
+  assert_range!(10..20, 20);
 }
 ```
 
@@ -42,15 +42,15 @@ thread 'main' panicked at 'assertion failed:
 `20 is not in range of 10..20` - it should have been in this range, src/main.rs:292:5
 ```
 
-You can even use decimal ranges! For example:
+Another example:
 
 ```rust
 use all_asserts::{assert_range, assert_nrange};
 fn main() {
-  assert_range!((1.0..=2.0), 1.5);
+  assert_range!(1.0..=2.0, 1.5);
   // You can also add a debug message if the assertion fails
   assert_nrange!(
-    (1.0..=2.0), 1.5, "Oops! 1.5 is in the interval [1.0,2.0]"
+    1.0..=2.0, 1.5, "Oops! 1.5 is in the interval [1.0,2.0]"
   );
 }
 ```

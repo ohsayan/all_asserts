@@ -25,33 +25,33 @@ fn panic_when_not_le() {
 }
 #[test]
 fn test_assert_range_pass() {
-    assert_range!((0..=10), 10);
-    assert_range!((1.0..2.0), 1.5);
-    assert_range!((1.0..2.0), 1.3);
+    assert_range!(0..=10, 10);
+    assert_range!(1.0..2.0, 1.5);
+    assert_range!(1.0..2.0, 1.3);
 }
 #[test]
 #[should_panic]
 fn test_assert_range_fail() {
-    assert_range!((0..10), 11);
-    assert_range!((1.0..=2.0), 2.1);
+    assert_range!(0..10, 11);
+    assert_range!(1.0..=2.0, 2.1);
 }
 #[test]
 fn test_assert_nrange_pass() {
-    assert_nrange!((10..20), 20);
-    assert_nrange!((1.0..2.0), 2.0);
+    assert_nrange!(10..20, 20);
+    assert_nrange!(1.0..2.0, 2.0);
 }
 #[test]
 #[should_panic]
 fn test_assert_nrange_fail() {
-    assert_nrange!((10..=20), 20);
-    assert_nrange!((1.0..=2.0), 2.0);
+    assert_nrange!(10..=20, 20);
+    assert_nrange!(1.0..=2.0, 2.0);
 }
 #[test]
 #[should_panic]
 fn test_assert_range_with_fail_msg() {
     // Assert with a message
     assert_range!(
-        (1.0..=2.0),
+        1.0..=2.0,
         2.1,
         "Failed to assert that 2.1 is in the interval [1.0,2.0]"
     );
@@ -60,7 +60,7 @@ fn test_assert_range_with_fail_msg() {
 #[should_panic]
 fn test_assert_nrange_with_fail_msg() {
     // Assert with a message
-    assert_nrange!((1.0..2.0), 1.5, "Oops! 1.5 is in the interval [1.0,2.0)")
+    assert_nrange!(1.0..2.0, 1.5, "Oops! 1.5 is in the interval [1.0,2.0)")
 }
 #[test]
 fn test_assert_near_pass() {

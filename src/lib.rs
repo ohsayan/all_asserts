@@ -201,7 +201,7 @@ macro_rules! assert_range {
     ($left:expr, $right:expr) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
-                if !(left_val.contains(right_val)) {
+                if !(::core::ops::RangeBounds::contains(left_val, right_val)) {
                     panic!(
                         r#"assertion failed: `{} is not in range of {:?}` - it should have been in this range"#,
                         right_val,
@@ -214,7 +214,7 @@ macro_rules! assert_range {
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
-                if !(left_val.contains(right_val)) {
+                if !(::core::ops::RangeBounds::contains(left_val, right_val)) {
                     panic!(
                         r#"assertion failed: `{} is not in range of {:?}` - it should have been in this range: {}"#,
                         right_val,
@@ -249,7 +249,7 @@ macro_rules! assert_nrange {
     ($left:expr, $right:expr $(,)?) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
-                if (left_val.contains(right_val)) {
+                if (::core::ops::RangeBounds::contains(left_val, right_val)) {
                     panic!(
                         r#"assertion failed: `{} is in range of {:?}` - it should not have been in this range"#,
                         right_val,
@@ -262,7 +262,7 @@ macro_rules! assert_nrange {
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
-                if (left_val.contains(right_val)) {
+                if (::core::ops::RangeBounds::contains(left_val, right_val)) {
                     panic!(
                         r#"assertion failed: `{} is in range of {:?}` - it should not have been in this range: {}"#,
                         right_val,
