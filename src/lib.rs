@@ -298,7 +298,7 @@ macro_rules! assert_near {
     ($left:expr, $right:expr, $epsilon:expr $(,)?) => ({
         match (&$left, &$right, &$epsilon) {
             (left_val, right_val, epsilon_val) => {
-                if (*left_val > (*right_val + *epsilon_val)) || (*left_val < (*right_val - *epsilon_val)) {
+                if !((*left_val <= (*right_val + *epsilon_val)) && (*left_val >= (*right_val - *epsilon_val))) {
                     panic!(
                         r#"assertion failed: `{} is not within epsilon {} of {}`"#,
                         right_val,
@@ -312,7 +312,7 @@ macro_rules! assert_near {
     ($left:expr, $right:expr, $epsilon:expr, $($arg:tt)+ $(,)?) => ({
         match (&($left), &($right), &($epsilon)) {
             (left_val, right_val, epsilon_val) => {
-                if (*left_val > (*right_val + *epsilon_val)) || (*left_val < (*right_val - *epsilon_val)) {
+                if !((*left_val <= (*right_val + *epsilon_val)) && (*left_val >= (*right_val - *epsilon_val))) {
                     panic!(
                         r#"assertion failed: `{} is not within epsilon {} of {}`"#,
                         right_val,
