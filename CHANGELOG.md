@@ -2,6 +2,10 @@
 
 All changes in this project will be noted in this file.
 
+## Version 2.3.2 [2024-12-14]
+
+Fixes an issue with with the `assert_near` macro's behavior.
+
 ## Version 2.3.1 [2022-02-02]
 
 - (Possibly breaking): The crate now calls `contains` from `RangeBounds` using FQS for disambiguation.

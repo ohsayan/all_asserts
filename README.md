@@ -1,4 +1,4 @@
-# all_asserts [![Build Status](https://travis-ci.org/ohsayan/all_asserts.svg?branch=master)](https://travis-ci.org/ohsayan/all_asserts) [![all_asserts crate](https://img.shields.io/crates/v/all_asserts.svg?style=flat-square)](https://crates.io/crates/all_asserts) [![Crates.io](https://img.shields.io/crates/d/all_asserts.svg?color=%234527A0)](https://crates.io/crates/all_asserts) [![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE)
+# all_asserts ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ohsayan/all_asserts/test.yml) [![all_asserts crate](https://img.shields.io/crates/v/all_asserts.svg?style=flat-square)](https://crates.io/crates/all_asserts) [![Crates.io](https://img.shields.io/crates/d/all_asserts.svg?color=%234527A0)](https://crates.io/crates/all_asserts) [![license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE)
 
 ## A crate for multiple types of asserts that don't exist in the standard library
 
