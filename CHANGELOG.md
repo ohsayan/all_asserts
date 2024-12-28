@@ -2,6 +2,10 @@
 
 All changes in this project will be noted in this file.
 
+## Version 2.3.3 [2024-12-28]
+
+Ensure fully-qualified paths for disambiguation.
+
 ## Version 2.3.2 [2024-12-14]
 
 Fixes an issue with with the `assert_near` macro's behavior.

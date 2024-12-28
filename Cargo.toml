@@ -1,6 +1,6 @@
 [package]
 name = "all_asserts"
-version = "2.3.2"
+version = "2.3.3"
 authors = ["Sayan Nandan <nandansayan@outlook.com>"]
 edition = "2018"
 description = "A crate for multiple types of asserts that don't exist in the standard library"
@@ -10,4 +10,3 @@ keywords = ["assert", "test", "testing", "asserts", "compare"]
 categories = ["development-tools"]
 license = "Apache-2.0"
 repository = "https://github.com/ohsayan/all_asserts"
-[dependencies]
