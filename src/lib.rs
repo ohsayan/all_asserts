@@ -21,7 +21,7 @@ macro_rules! assert_gt {
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if !(*left_val > *right_val) {
-                    panic!(r#"assertion failed: `(left > right) but here (left <= right)`
+                    ::std::panic!(r#"assertion failed: `(left > right) but here (left <= right)`
   left: `{:?}`,
  right: `{:?}`"#, &*left_val, &*right_val)
                 }
@@ -32,10 +32,10 @@ macro_rules! assert_gt {
         match (&($left), &($right)) {
             (left_val, right_val) => {
                 if !(*left_val > *right_val) {
-                    panic!(r#"assertion failed: `(left > right) but here (left <= right)`
+                    ::std::panic!(r#"assertion failed: `(left > right) but here (left <= right)`
   left: `{:?}`,
  right: `{:?}`: {}"#, &*left_val, &*right_val,
-                           format_args!($($arg)+))
+                           ::std::format_args!($($arg)+))
                     }
                 }
             }
@@ -47,7 +47,7 @@ macro_rules! assert_gt {
 /// [`assert_gt`]: ./macro.assert_gt.html
 #[macro_export]
 macro_rules! debug_assert_gt {
-    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_gt!($($arg)*); })
+    ($($arg:tt)*) => (if ::std::cfg!(debug_assertions) { $crate::assert_gt!($($arg)*); })
 }
 /// Asserts that the left hand side expression is greater
 /// than or equal to the right hand side expression
@@ -66,7 +66,7 @@ macro_rules! assert_ge {
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if !(*left_val >= *right_val) {
-                    panic!(r#"assertion failed: `(left >= right) but here (left < right)`
+                    ::std::panic!(r#"assertion failed: `(left >= right) but here (left < right)`
   left: `{:?}`,
  right: `{:?}`"#, &*left_val, &*right_val)
                 }
@@ -77,10 +77,10 @@ macro_rules! assert_ge {
         match (&($left), &($right)) {
             (left_val, right_val) => {
                 if !(*left_val > *right_val) {
-                    panic!(r#"assertion failed: `(left >= right) but here (left < right)`
+                    ::std::panic!(r#"assertion failed: `(left >= right) but here (left < right)`
   left: `{:?}`,
  right: `{:?}`: {}"#, &*left_val, &*right_val,
-                           format_args!($($arg)+))
+                           ::std::format_args!($($arg)+))
                 }
             }
         }
@@ -92,7 +92,7 @@ macro_rules! assert_ge {
 /// [`assert_ge`]: ./macro.assert_ge.html
 #[macro_export]
 macro_rules! debug_assert_ge {
-    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_ge!($($arg)*); })
+    ($($arg:tt)*) => (if ::std::cfg!(debug_assertions) { $crate::assert_ge!($($arg)*); })
 }
 
 /// Asserts that the left hand side expression is lesser
@@ -112,7 +112,7 @@ macro_rules! assert_lt {
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if !(*left_val < *right_val) {
-                    panic!(r#"assertion failed: `(left < right) but here (left >= right)`
+                    ::std::panic!(r#"assertion failed: `(left < right) but here (left >= right)`
   left: `{:?}`,
  right: `{:?}`"#, &*left_val, &*right_val)
                 }
@@ -123,10 +123,10 @@ macro_rules! assert_lt {
         match (&($left), &($right)) {
             (left_val, right_val) => {
                 if !(*left_val < *right_val) {
-                    panic!(r#"assertion failed: `(left < right) but here (left >= right)`
+                    ::std::panic!(r#"assertion failed: `(left < right) but here (left >= right)`
   left: `{:?}`,
  right: `{:?}`: {}"#, &*left_val, &*right_val,
-                           format_args!($($arg)+))
+                           ::std::format_args!($($arg)+))
                 }
             }
         }
@@ -138,7 +138,7 @@ macro_rules! assert_lt {
 /// [`assert_lt`]: ./macro.assert_lt.html
 #[macro_export]
 macro_rules! debug_assert_lt {
-    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_lt!($($arg)*); })
+    ($($arg:tt)*) => (if ::std::cfg!(debug_assertions) { $crate::assert_lt!($($arg)*); })
 }
 
 /// Asserts that the left hand side expression is lesser than
@@ -158,7 +158,7 @@ macro_rules! assert_le {
         match (&$left, &$right) {
             (left_val, right_val) => {
                 if !(*left_val <= *right_val) {
-                    panic!(r#"assertion failed: `(left <= right) but here (left > right)`
+                    ::std::panic!(r#"assertion failed: `(left <= right) but here (left > right)`
   left: `{:?}`,
  right: `{:?}`"#, &*left_val, &*right_val)
                 }
@@ -169,10 +169,10 @@ macro_rules! assert_le {
         match (&($left), &($right)) {
             (left_val, right_val) => {
                 if !(*left_val <= *right_val) {
-                    panic!(r#"assertion failed: `(left <= right) but here (left > right)`
+                    ::std::panic!(r#"assertion failed: `(left <= right) but here (left > right)`
   left: `{:?}`,
  right: `{:?}`: {}"#, &*left_val, &*right_val,
-                           format_args!($($arg)+))
+                           ::std::format_args!($($arg)+))
                 }
             }
         }
@@ -184,7 +184,7 @@ macro_rules! assert_le {
 /// [`assert_le`]: ./macro.assert_le.html
 #[macro_export]
 macro_rules! debug_assert_le {
-    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_le!($($arg)*); })
+    ($($arg:tt)*) => (if ::std::cfg!(debug_assertions) { $crate::assert_le!($($arg)*); })
 }
 
 /// Asserts that the right hand side expression is
@@ -201,8 +201,8 @@ macro_rules! assert_range {
     ($left:expr, $right:expr) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
-                if !(::core::ops::RangeBounds::contains(left_val, right_val)) {
-                    panic!(
+                if !(::std::ops::RangeBounds::contains(left_val, right_val)) {
+                    ::std::panic!(
                         r#"assertion failed: `{} is not in range of {:?}` - it should have been in this range"#,
                         right_val,
                         left_val
@@ -214,12 +214,12 @@ macro_rules! assert_range {
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
-                if !(::core::ops::RangeBounds::contains(left_val, right_val)) {
-                    panic!(
+                if !(::std::ops::RangeBounds::contains(left_val, right_val)) {
+                    ::std::panic!(
                         r#"assertion failed: `{} is not in range of {:?}` - it should have been in this range: {}"#,
                         right_val,
                         left_val,
-                        format_args!($($arg)+)
+                        ::std::format_args!($($arg)+)
                     )
                 }
             }
@@ -232,7 +232,7 @@ macro_rules! assert_range {
 /// [`assert_range`]: ./macro.assert_range.html
 #[macro_export]
 macro_rules! debug_assert_range {
-    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_range!($($arg)*); })
+    ($($arg:tt)*) => (if ::std::cfg!(debug_assertions) { $crate::assert_range!($($arg)*); })
 }
 
 /// Asserts that the right hand side expression is not
@@ -249,8 +249,8 @@ macro_rules! assert_nrange {
     ($left:expr, $right:expr $(,)?) => ({
         match (&$left, &$right) {
             (left_val, right_val) => {
-                if (::core::ops::RangeBounds::contains(left_val, right_val)) {
-                    panic!(
+                if (::std::ops::RangeBounds::contains(left_val, right_val)) {
+                    ::std::panic!(
                         r#"assertion failed: `{} is in range of {:?}` - it should not have been in this range"#,
                         right_val,
                         left_val
@@ -262,12 +262,12 @@ macro_rules! assert_nrange {
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
-                if (::core::ops::RangeBounds::contains(left_val, right_val)) {
-                    panic!(
+                if (::std::ops::RangeBounds::contains(left_val, right_val)) {
+                    ::std::panic!(
                         r#"assertion failed: `{} is in range of {:?}` - it should not have been in this range: {}"#,
                         right_val,
                         left_val,
-                        format_args!($($arg)+)
+                        ::std::format_args!($($arg)+)
                     )
                 }
             }
@@ -280,7 +280,7 @@ macro_rules! assert_nrange {
 /// [`assert_nrange`]: ./macro.assert_nrange.html
 #[macro_export]
 macro_rules! debug_assert_nrange {
-    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_nrange!($($arg)*); })
+    ($($arg:tt)*) => (if ::std::cfg!(debug_assertions) { $crate::assert_nrange!($($arg)*); })
 }
 
 /// Asserts that the right hand side expression is
@@ -299,7 +299,7 @@ macro_rules! assert_near {
         match (&$left, &$right, &$epsilon) {
             (left_val, right_val, epsilon_val) => {
                 if !((*left_val <= (*right_val + *epsilon_val)) && (*left_val >= (*right_val - *epsilon_val))) {
-                    panic!(
+                    ::std::panic!(
                         r#"assertion failed: `{} is not within epsilon {} of {}`"#,
                         right_val,
                         epsilon_val,
@@ -313,12 +313,12 @@ macro_rules! assert_near {
         match (&($left), &($right), &($epsilon)) {
             (left_val, right_val, epsilon_val) => {
                 if !((*left_val <= (*right_val + *epsilon_val)) && (*left_val >= (*right_val - *epsilon_val))) {
-                    panic!(
+                    ::std::panic!(
                         r#"assertion failed: `{} is not within epsilon {} of {}`"#,
                         right_val,
                         epsilon_val,
                         left_val,
-                        format_args!($($arg)+)
+                        ::std::format_args!($($arg)+)
                     )
                 }
             }
@@ -331,7 +331,7 @@ macro_rules! assert_near {
 /// [`assert_near`]: ./macro.assert_near.html
 #[macro_export]
 macro_rules! debug_assert_near {
-    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_near!($($arg)*); })
+    ($($arg:tt)*) => (if ::std::cfg!(debug_assertions) { $crate::assert_near!($($arg)*); })
 }
 
 /// Asserts that the expression is true
@@ -349,10 +349,10 @@ macro_rules! debug_assert_near {
 #[macro_export]
 macro_rules! assert_true {
     ($cond:expr $(,)?) => ({
-        assert!($cond)
+        ::std::assert!($cond)
     });
     ($cond:expr, $($arg:tt)+) => ({
-        assert!($cond, $($arg)+)
+        ::std::assert!($cond, $($arg)+)
     });
 }
 
@@ -361,7 +361,7 @@ macro_rules! assert_true {
 /// [`assert_true`]: ./macro.assert_true.html
 #[macro_export]
 macro_rules! debug_assert_true {
-    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_true!($($arg)*); })
+    ($($arg:tt)*) => (if ::std::cfg!(debug_assertions) { $crate::assert_true!($($arg)*); })
 }
 
 /// Asserts that the expression is false
@@ -379,10 +379,10 @@ macro_rules! debug_assert_true {
 #[macro_export]
 macro_rules! assert_false {
     ($cond:expr $(,)?) => ({
-        assert!(!$cond)
+        ::std::assert!(!$cond)
     });
     ($cond:expr, $($arg:tt)+) => ({
-        assert!(!$cond, $($arg)+)
+        ::std::assert!(!$cond, $($arg)+)
     });
 }
 
@@ -391,5 +391,5 @@ macro_rules! assert_false {
 /// [`assert_false`]: ./macro.assert_false.html
 #[macro_export]
 macro_rules! debug_assert_false {
-    ($($arg:tt)*) => (if cfg!(debug_assertions) { assert_false!($($arg)*); })
+    ($($arg:tt)*) => (if ::std::cfg!(debug_assertions) { $crate::assert_false($($arg)*); })
 }
