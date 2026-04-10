@@ -76,7 +76,7 @@ macro_rules! assert_ge {
     ($left:expr, $right:expr, $($arg:tt)+) => ({
         match (&($left), &($right)) {
             (left_val, right_val) => {
-                if !(*left_val > *right_val) {
+                if !(*left_val >= *right_val) {
                     ::std::panic!(r#"assertion failed: `(left >= right) but here (left < right)`
   left: `{:?}`,
  right: `{:?}`: {}"#, &*left_val, &*right_val,
