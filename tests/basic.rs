@@ -4,24 +4,73 @@ use all_asserts::{
 };
 
 #[test]
+fn test_assert_gt_pass() {
+    assert_gt!(5, 4);
+    assert_gt!(5, 4, "5 is greater than 4");
+}
+#[test]
 #[should_panic]
-fn panic_when_not_gt() {
+fn test_assert_gt_fail() {
     assert_gt!(4, 4);
 }
 #[test]
 #[should_panic]
-fn panic_when_not_ge() {
+fn test_assert_gt_with_fail_msg() {
+    assert_gt!(4, 4, "Failed to assert that 4 is greater than 4");
+}
+
+#[test]
+fn test_assert_ge_pass() {
+    assert_ge!(4, 4);
+    assert_ge!(4, 4, "4 is greater than or equal to 4");
+    assert_ge!(5, 4);
+    assert_ge!(5, 4, "5 is greater than 4");
+}
+#[test]
+#[should_panic]
+fn test_assert_ge_fail() {
     assert_ge!(3, 4);
 }
 #[test]
-#[should_panic]
-fn panic_when_not_lt() {
-    assert_lt!(4, 4);
+#[should_panic(expected = "Failed to assert that 3 is greater than or equal to 4")]
+fn test_assert_ge_with_fail_msg() {
+    assert_ge!(
+        3,
+        4,
+        "Failed to assert that 3 is greater than or equal to 4"
+    );
+}
+#[test]
+fn test_assert_lt_pass() {
+    assert_lt!(4, 5);
+    assert_lt!(4, 5, "4 is less than 5");
 }
 #[test]
 #[should_panic]
-fn panic_when_not_le() {
+fn test_assert_lt_fail() {
+    assert_lt!(4, 4);
+}
+#[test]
+#[should_panic(expected = "Failed to assert that 4 is less than 4")]
+fn test_assert_lt_with_fail_msg() {
+    assert_lt!(4, 4, "Failed to assert that 4 is less than 4");
+}
+#[test]
+fn test_assert_le_pass() {
+    assert_le!(4, 4);
+    assert_le!(4, 4, "4 is less than or equal to 4");
+    assert_le!(3, 4);
+    assert_le!(3, 4, "3 is less than 4");
+}
+#[test]
+#[should_panic]
+fn test_assert_le_fail() {
     assert_le!(4, 3);
+}
+#[test]
+#[should_panic(expected = "Failed to assert that 4 is less than or equal to 3")]
+fn test_assert_le_with_fail_msg() {
+    assert_le!(4, 3, "Failed to assert that 4 is less than or equal to 3");
 }
 #[test]
 fn test_assert_range_pass() {
@@ -47,7 +96,7 @@ fn test_assert_nrange_fail() {
     assert_nrange!(1.0..=2.0, 2.0);
 }
 #[test]
-#[should_panic]
+#[should_panic(expected = "Failed to assert that 2.1 is in the interval [1.0,2.0]")]
 fn test_assert_range_with_fail_msg() {
     // Assert with a message
     assert_range!(
@@ -57,7 +106,7 @@ fn test_assert_range_with_fail_msg() {
     );
 }
 #[test]
-#[should_panic]
+#[should_panic(expected = "Oops! 1.5 is in the interval [1.0,2.0)")]
 fn test_assert_nrange_with_fail_msg() {
     // Assert with a message
     assert_nrange!(1.0..2.0, 1.5, "Oops! 1.5 is in the interval [1.0,2.0)")
