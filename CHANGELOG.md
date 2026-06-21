@@ -2,6 +2,10 @@
 
 All changes in this project will be noted in this file.
 
+## Version 2.3.4 [2026-06-21]
+
+Fixed bug in `assert_ge!`
+
 ## Version 2.3.3 [2024-12-28]
 
 Ensure fully-qualified paths for disambiguation.
